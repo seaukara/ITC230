@@ -1,6 +1,6 @@
 'use strict'
 var http = require("http"), fs = require('fs'), qs = require("querystring"); // specify which modules will be required by the index.js - this assignment adds querystring to allow us to manage and interpret routes
-let tasks = require("/Users/karamanseau/node/ITC230/widgets/tasks.js"); // we will also require a custom module that will hold are list
+let tasks = require("/Users/karamanseau/ITC230/widgets/tasks.js"); // we will also require a custom module that will hold are list
 
 function serveStatic(res, path, contentType, responseCode){
   if(!responseCode) responseCode = 200;
