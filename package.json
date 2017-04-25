@@ -4,6 +4,9 @@
   "description": "package created for assignment 1 in ITC230",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
     "package.json": "^2.0.1"
   },
   "devDependencies": {},

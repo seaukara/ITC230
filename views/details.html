@@ -1,0 +1,48 @@
+<style>
+a:link {
+    color: #269a7b;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: #565e8a;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: #86f703;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: #565e8a;
+    background-color: transparent;
+    text-decoration: underline;
+}
+</style>
+
+
+<html>
+<body>
+  <h2 id = "titleDetails" >Details for {{day.day}}</h2>
+  {{#if result}}
+    <li>Day: {{ result.day }}    
+    <li>Time: {{ result.taskTime }}
+    <li>Task: {{ result.taskType }}
+    <li>Details: {{ result.taskName }}
+    <br></br>
+    <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a>
+  {{else}}
+  	<div type=text id="noTasks">
+    <script>
+        if (location.href.split("=")[1]!==undefined) {
+    	   document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";
+           document.getElementById("titleDetails").innerHTML = "Details for " + location.href.split("=")[1];
+        } else {
+            document.getElementById("noTasks").innerHTML = "";
+            document.getElementById("titleDetails").innerHTML = "NO RESULTS AVAILABLE";
+        }
+    </script> 
+  {{/if}}
+</body>
+</html> 
