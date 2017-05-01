@@ -35,6 +35,7 @@ a:active {
     <a href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
   {{else}}
   	<div type=text id="noTasks">
+    <a href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
     <script>
         if (location.href.split("=")[1]!==undefined) {
     	   document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";

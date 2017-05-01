@@ -31,19 +31,25 @@ a:active {
     <li>Task: {{ result.taskType }}
     <li>Details: {{ result.taskName }}
     <br></br>
-    <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a><br>
-    <a href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
+    <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a>
+
   {{else}}
-  	<div type=text id="noTasks">
+    <div type=text id="noTasks">
+
     <script>
         if (location.href.split("=")[1]!==undefined) {
-    	   document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";
-           document.getElementById("titleDetails").innerHTML = "Details for " + location.href.split("=")[1];
+            document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";
+
+            document.getElementById("titleDetails").innerHTML = "Details for " + location.href.split("=")[1];
         } else {
             document.getElementById("noTasks").innerHTML = "";
+
             document.getElementById("titleDetails").innerHTML = "NO RESULTS AVAILABLE";
         }
     </script> 
+
   {{/if}}
+  <br>
+<a id=test href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
 </body>
 </html> 
