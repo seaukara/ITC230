@@ -3,7 +3,7 @@
 var express = require("express");
 var app = express();
 
-var tasks = require('./widgets/tasks.js');
+var tasks = require('./lib/tasks.js');
 
 var handlebars =  require("express-handlebars");
 app.engine(".html", handlebars({extname: '.html'}));
@@ -26,6 +26,10 @@ app.get('/about', function (req, res) {
     res.send('About page');
 });
 
+app.get('/addNew', function (req, res) {
+    res.render('addNew');
+});
+
 
 app.get('/get', function (req, res) {
     console.log(req.query);
@@ -37,12 +41,26 @@ app.get('/get', function (req, res) {
 
 app.get('/delete', function (req, res) {
     res.type('text/plain');
-
-
     var removed = tasks.removeTask(req.query.day);
-    
     res.type('text/plain');
     res.send("Tasks for " + req.query.day + " were removed. There are " + removed + " tasks remaining.");
+});
+
+
+
+app.get('/add', function (req, res) {
+
+
+    var add = tasks.addTask(req.query.day, req.query.dow, req.query.taskName, req.query.taskType, req.query.taskTime);
+    if (add === "FAIL") {
+        var day = req.query.day;
+        var result = tasks.getDay(day);
+        res.render('currentlyExists', {result: result});
+    } else {
+        res.type('text/plain');
+        res.send("Tasks for " + req.query.day + " were added. There are " + add + " tasks remaining.");
+    }
+
 });
 
 app.post('/get', function (req, res) {

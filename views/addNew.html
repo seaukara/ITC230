@@ -1,0 +1,65 @@
+<style>
+a:link {
+    color: #269a7b;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: #565e8a;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: #86f703;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: #565e8a;
+    background-color: transparent;
+    text-decoration: underline;
+}
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 10px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 14px;
+}
+
+
+</style>
+
+
+<html>
+<body>
+  <h2 id = "titleDetails" >Add  New Task</h2>
+        <form method="get" action="/add">
+            <select id="list" name="day" style="width: 130px">
+                <option>monday</option>
+                <option>tuesday</option>
+                <option>wednesday</option>
+                <option>thursday</option>
+                <option>friday</option>
+                <option>saturday</option>
+                <option>sunday</option></select><br>
+            <input type="text" name="dow" placeholder="1,2,3-7"/><br>
+            <input type="text" name="taskName" placeholder="Advanced JS"/><br>
+            <input type="text" name="taskType" placeholder="class"/><br>
+            <input type="text" name="taskTime" placeholder="5:00pm"/><br>
+  <button type="submit" style="width: 130px">Save</button>
+</form>
+<script>
+  var form = document.querySelector("form");
+  form.addEventListener("submit", function(event) {
+    console.log("Saving value", form.elements.value.value);
+    event.preventDefault();
+  });
+</script>
+</body>
+</html> 

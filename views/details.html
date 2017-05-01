@@ -31,7 +31,8 @@ a:active {
     <li>Task: {{ result.taskType }}
     <li>Details: {{ result.taskName }}
     <br></br>
-    <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a>
+    <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a><br>
+    <a href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
   {{else}}
   	<div type=text id="noTasks">
     <script>
