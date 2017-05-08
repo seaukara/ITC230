@@ -24,19 +24,22 @@ a:active {
 
 <html>
 <body>
-  <h2 id = "titleDetails" >Details for {{day.day}}</h2>
+  
   {{#if result}}
-    <li>Day: {{ result.day }}    
-    <li>Time: {{ result.taskTime }}
-    <li>Task: {{ result.taskType }}
-    <li>Details: {{ result.taskName }}
-    <br></br>
-    <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a>
+        <h2 id = "titleDetails" >Details for {{result.day}}</h2>
+        <li>Day: {{ result.day }}    
+        <li>Time: {{ result.taskTime }}
+        <li>Task: {{ result.taskType }}
+        <li>Details: {{ result.taskName }}
+        <br></br>
+        <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a>
 
   {{else}}
+    <h2 id = "titleDetails">No tasks currently assigned to this day of the week...</h2>
     <div type=text id="noTasks">
-
-    <script>
+    <a id=test href="http://localhost:3000/addNew" target="_blank">Add New Task</a><br>
+    <a id=test href="http://localhost:3000/" target="_blank">Return to home</a>
+<!--     <script>
         if (location.href.split("=")[1]!==undefined) {
             document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";
 
@@ -45,11 +48,12 @@ a:active {
             document.getElementById("noTasks").innerHTML = "";
 
             document.getElementById("titleDetails").innerHTML = "NO RESULTS AVAILABLE";
+            <a id=test href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
         }
-    </script> 
+    </script>  -->
 
   {{/if}}
   <br>
-<a id=test href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
+
 </body>
 </html> 

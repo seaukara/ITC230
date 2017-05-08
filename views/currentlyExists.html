@@ -25,26 +25,14 @@ a:active {
 <html>
 <body>
   <h2 id = "titleDetails" >A task already exists for {{result.day}} </h2>
-  {{#if result}}
+
     <li>Day: {{ result.day }}    
     <li>Time: {{ result.taskTime }}
     <li>Task: {{ result.taskType }}
     <li>Details: {{ result.taskName }}
     <br></br>
     <a href="http://localhost:3000/delete?day={{result.day}}" target="_blank">Delete Task</a><br>
-    <a href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
-  {{else}}
-  	<div type=text id="noTasks">
-    <a href="http://localhost:3000/addNew" target="_blank">Add New Task</a>
-    <script>
-        if (location.href.split("=")[1]!==undefined) {
-    	   document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";
-           document.getElementById("titleDetails").innerHTML = "Details for " + location.href.split("=")[1];
-        } else {
-            document.getElementById("noTasks").innerHTML = "";
-            document.getElementById("titleDetails").innerHTML = "NO RESULTS AVAILABLE";
-        }
-    </script> 
-  {{/if}}
+    <a href="http://localhost:3000/" target="_blank">Return to Home</a>
+
 </body>
 </html> 

@@ -15,11 +15,19 @@ app.use(require("body-parser").urlencoded({extended: true})); // parse form subm
 
 // send static file as response
 
-app.get('/', function (req, res) {
-    res.type('text/html');
-    res.sendFile(__dirname + '/public/home.html');
-});
+// app.get('/', function (req, res) {
+//     res.type('text/html');
 
+//     res.sendFile(__dirname + '/public/home.html');
+// });
+app.get('/', function(req,res){
+
+
+    var children = tasks.getAll();
+    console.log(children);
+    res.render('home', {children:children});
+
+});
 // send plain text response
 app.get('/about', function (req, res) {
     res.type('text/plain');
@@ -67,7 +75,12 @@ app.post('/get', function (req, res) {
 
     var day = req.body.day;
     var result = tasks.getDay(req.body.day);
-    res.render('details', {result: result});
+    if (result==="NONE") {
+
+        result = "There are currently no tasks for this day"
+        res.render('details', "there are no tasks")
+    }
+    res.render('details', {result:result, day: result.day});
 
 
     
