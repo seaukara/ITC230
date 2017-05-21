@@ -6,7 +6,7 @@ var db = require('./models/tasks');
 var tasks = require('./lib/tasks.js');
 var mongoose = require("mongoose");
 var handlebars =  require("express-handlebars");
-app.engine(".html", handlebars({extname: '.html'}, defaultLayout: 'main'));
+app.engine(".html", handlebars({extname: '.html'}, defaultLayer: 'home'));
 app.set("view engine", ".html");
 
 app.set('port', process.env.PORT || 3000);
