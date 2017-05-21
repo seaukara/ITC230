@@ -2,9 +2,9 @@
 
 var express = require("express");
 var app = express();
-
+var db = require('./models/tasks');
 var tasks = require('./lib/tasks.js');
-
+var mongoose = require("mongoose");
 var handlebars =  require("express-handlebars");
 app.engine(".html", handlebars({extname: '.html'}));
 app.set("view engine", ".html");
@@ -12,6 +12,30 @@ app.set("view engine", ".html");
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public')); // set location for static files
 app.use(require("body-parser").urlencoded({extended: true})); // parse form submissions
+
+
+console.log(db)
+
+// var t = db.mongoose.model('tasks')
+// return all records
+var allTasks = db.find({}, function (err, items) {
+    if (err) return next(err);
+    console.log(items.length);
+    if (items.length == 0) {
+        var Stuff = [{day: "monday", dow: 1, taskName: "adv. javascript", taskType: "class", taskTime: "5:00pm"}, {day: "tuesday", dow: 2, taskName: "java 2", taskType: "class", taskTime: "3:30pm"}, {day: "wednesday", dow: 3, taskName: "adv. javascript", taskType: "class", taskTime: "5:00pm"}, {day: "thursday", dow: 4, taskName: "java for mobile dev", taskType: "class", taskTime: "7:00pm"}, {day: "friday", dow: 5, taskName: "dentist", taskType: "appointment", taskTime: "1:00pm"}, {day: "saturday", dow: 6, taskName: "climb", taskType: "excercise", taskTime: "1:00pm"}, {day: "sunday", dow: 7, taskName: "clean room", taskType: "chores", taskTime: "10:00am"}]
+        db.insertMany(Stuff);
+        db.find({}, function (err, items) {
+            if (err) return next(err);
+                console.log(items.length);
+                return items;
+            })
+        return items;
+    }
+    return items;
+    console.log(items)
+    // other code here
+});
+console.log(allTasks)
 
 // send static file as response
 
@@ -22,16 +46,21 @@ app.use(require("body-parser").urlencoded({extended: true})); // parse form subm
 // });
 app.get('/', function(req,res){
 
-
-    var children = tasks.getAll();
+    //res.setHeader('Content-Type', 'text/plain');
+    var children = tasks.getAll(db);
     console.log(children);
+
+
+    
+
     res.render('home', {children:children});
 
 });
+
 // send plain text response
 app.get('/about', function (req, res) {
-    res.type('text/plain');
-    res.send('About page');
+
+    res.render('about');
 });
 
 app.get('/addNew', function (req, res) {
@@ -41,17 +70,19 @@ app.get('/addNew', function (req, res) {
 
 app.get('/get', function (req, res) {
     console.log(req.query);
-    var result = tasks.getDay(req.query.day);
+    var result = tasks.getDay(req.query.day, db);
     res.render('details', {result: result} );
     console.log(req.query); // display parsed querystring object
 });
 
 
 app.get('/delete', function (req, res) {
-    res.type('text/plain');
-    var removed = tasks.removeTask(req.query.day);
-    res.type('text/plain');
-    res.send("Tasks for " + req.query.day + " were removed. There are " + removed + " tasks remaining.");
+    //res.type('text/plain');
+    var removed = tasks.removeTask(req.query.day, db);
+    var message = "Tasks for " + req.query.day + " were removed. There are " + removed + " tasks remaining."
+    res.render('delete', {info : message})
+    //res.type('text/plain');
+    //res.send("Tasks for " + req.query.day + " were removed. There are " + removed + " tasks remaining.");
 });
 
 
@@ -59,10 +90,10 @@ app.get('/delete', function (req, res) {
 app.get('/add', function (req, res) {
 
 
-    var add = tasks.addTask(req.query.day, req.query.dow, req.query.taskName, req.query.taskType, req.query.taskTime);
+    var add = tasks.addTask(req.query.day, req.query.dow, req.query.taskName, req.query.taskType, req.query.taskTime, db);
     if (add === "FAIL") {
         var day = req.query.day;
-        var result = tasks.getDay(day);
+        var result = tasks.getDay(day, db);
         res.render('currentlyExists', {result: result});
     } else {
         res.type('text/plain');
@@ -74,13 +105,16 @@ app.get('/add', function (req, res) {
 app.post('/get', function (req, res) {
 
     var day = req.body.day;
-    var result = tasks.getDay(req.body.day);
-    if (result==="NONE") {
+    var result = tasks.getDay(req.body.day, db);
+    if (!result || result==="NONE") {
+        result = [];
+        result.missing = result
+        //result = "There are currently no tasks for this day"
+        res.render('details', {result:result})
+    }else {
 
-        result = "There are currently no tasks for this day"
-        res.render('details', "there are no tasks")
-    }
-    res.render('details', {result:result, day: result.day});
+        res.render('details', {result:result, day: result.day});
+    } 
 
 
     

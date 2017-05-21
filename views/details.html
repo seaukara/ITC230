@@ -25,7 +25,7 @@ a:active {
 <html>
 <body>
   
-  {{#if result}}
+  {{#if result.day}}
         <h2 id = "titleDetails" >Details for {{result.day}}</h2>
         <li>Day: {{ result.day }}    
         <li>Time: {{ result.taskTime }}
@@ -38,7 +38,9 @@ a:active {
     <h2 id = "titleDetails">No tasks currently assigned to this day of the week...</h2>
     <div type=text id="noTasks">
     <a id=test href="http://localhost:3000/addNew" target="_blank">Add New Task</a><br>
-    <a id=test href="http://localhost:3000/" target="_blank">Return to home</a>
+    <input type="button" value="Go Back" onclick="window.history.back()" />
+
+    <!-- <a id=test href="http://localhost:3000/" target="_blank">Return to home</a> -->
 <!--     <script>
         if (location.href.split("=")[1]!==undefined) {
             document.getElementById("noTasks").innerHTML = location.href.split("=")[1] + " has no tasks currently assigned to it";

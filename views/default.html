@@ -1,0 +1,75 @@
+<style>
+a:link {
+    color: green;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:visited {
+    color: pink;
+    background-color: transparent;
+    text-decoration: none;
+}
+a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+}
+a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 10px;
+    background-color: white;
+    background-image: url('searchicon.png');
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 14px;
+}
+
+input[type=text]:focus {
+    width: 330px;
+}
+
+
+</style>
+
+<html>
+<body>
+
+<div data-dojo-type="dijit/layout/BorderContainer" style="width:95%; height:95%; border-style: solid; border-width: thin; padding:5px; margin:5px">
+    <p></p>
+    <h1 type="text" style = "font-size: 12px">Weekly Task Tracker</h1>
+    <p>
+        <a href="http://localhost:3000/about" target="_blank" style = "font-size: 10px">About App</a>
+    </p>
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" region="top" style="overflow: hidden; height: 50%; border-style: dotted; border-width: thin; padding:7px">
+        <p>Select a day of the week to show the details of the tasks for that day of the week: </p>
+        {{! for loop }}
+        <ul>
+        {{#each children}}
+            {{! current context value corresponds to each child}}
+            <li>
+            <form method="get" action="/get?day="+{{this}}>
+                <button id = "dayButton" value = {{this}} type="submit" name="day"/>{{this}}</button>
+            </form>
+            </li> 
+        {{/each}}
+        </ul>
+    </div>
+        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" region="bottom" style="overflow: hidden; height: 100px; border-style: dotted; border-width: thin; padding:7px">
+        <div type="text" style = "font-size: 12px">Enter a day of the week: </div>
+        <form method="post" action="/get">
+            <input type="text" name="day" placeholder="monday...."/>
+        </form>
+        <div type="text" style = "font-size: 10px">To find out what tasks you have this week, <br> please enter a day of the week</div>
+    </div>
+    <body>
+</html> 
